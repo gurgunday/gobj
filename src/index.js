@@ -24,9 +24,7 @@ module.exports.Obj = class {
           return target.#map.get(prop);
         }
 
-        const value = Reflect.get(target, prop, receiver);
-
-        return typeof value === "function" ? value.bind(target) : value;
+        return Reflect.get(target, prop, receiver);
       },
       set: (target, prop, value) => {
         target.#map.set(prop, value);
@@ -60,9 +58,5 @@ module.exports.Obj = class {
         }
       },
     });
-  }
-
-  toString() {
-    return JSON.stringify(Object.fromEntries(this.#map));
   }
 };

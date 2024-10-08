@@ -77,12 +77,13 @@ describe("Obj class", () => {
     });
   });
 
-  test("toString returns JSON representation", () => {
-    const obj = new Obj({ a: 1, b: 2 });
-    assert.equal(obj.toString(), '{"a":1,"b":2}');
+  test("prototype methods are accessible /1", () => {
+    const obj = new Obj();
+    assert.equal(obj.toString(), "[object Object]");
+    assert.equal(obj.toLocaleString(), "[object Object]");
   });
 
-  test("prototype methods are accessible", () => {
+  test("prototype methods are accessible /2", () => {
     const ExtendedObj = class extends Obj {
       testMethod = () => {
         return this.test + "test";
