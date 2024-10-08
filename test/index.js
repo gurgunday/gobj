@@ -61,17 +61,6 @@ describe("Obj class", () => {
     assert.deepEqual(keys, ["a", "b"]);
   });
 
-  test("defineProperty with getter/setter function doesn't work", () => {
-    const obj = new Obj();
-    assert.throws(() => {
-      Object.defineProperty(obj, "a", {
-        get: () => {
-          return 1;
-        },
-      });
-    }, TypeError);
-  });
-
   test("Object.getOwnPropertyDescriptor returns correct descriptors", () => {
     const obj = new Obj({ a: 1 });
     const descriptor = Object.getOwnPropertyDescriptor(obj, "a");

@@ -36,10 +36,6 @@ module.exports.Obj = class {
         return true;
       },
       defineProperty: (target, prop, descriptor) => {
-        if (descriptor.get || descriptor.set) {
-          throw new TypeError("Getter/Setter properties are not supported");
-        }
-
         target.#map.set(prop, descriptor.value);
 
         return true;
