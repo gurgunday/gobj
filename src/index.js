@@ -20,11 +20,9 @@ module.exports.Obj = class {
         return target.#map.has(prop) || prop in Object.getPrototypeOf(target);
       },
       get: (target, prop, receiver) => {
-        if (target.#map.has(prop)) {
-          return target.#map.get(prop);
-        }
-
-        return Reflect.get(target, prop, receiver);
+        return target.#map.has(prop)
+          ? target.#map.get(prop)
+          : Reflect.get(target, prop, receiver);
       },
       set: (target, prop, value) => {
         target.#map.set(prop, value);
@@ -41,9 +39,7 @@ module.exports.Obj = class {
         return true;
       },
       deleteProperty: (target, prop) => {
-        if (target.#map.has(prop)) {
-          return target.#map.delete(prop);
-        }
+        target.#map.delete(prop);
 
         return true;
       },
