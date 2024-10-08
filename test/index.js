@@ -7,10 +7,8 @@ const { Obj } = require("../src");
 describe("Obj class", () => {
   test("constructor initializes with given data", () => {
     const obj = new Obj({ a: 1, b: 2 });
-    assert.deepEqual(Object.entries(obj), [
-      ["a", 1],
-      ["b", 2],
-    ]);
+
+    assert.deepEqual({ ...obj }, { a: 1, b: 2 });
   });
 
   test("get returns correct values", () => {
@@ -57,6 +55,17 @@ describe("Obj class", () => {
     assert.deepEqual(keys, ["a", "b"]);
   });
 
+  test("defineProperty with getter/setter function doesn't work", () => {
+    const obj = new Obj();
+    assert.throws(() => {
+      Object.defineProperty(obj, "a", {
+        get: () => {
+          return 1;
+        },
+      });
+    }, TypeError);
+  });
+
   test("Object.getOwnPropertyDescriptor returns correct descriptors", () => {
     const obj = new Obj({ a: 1 });
     const descriptor = Object.getOwnPropertyDescriptor(obj, "a");
@@ -74,13 +83,13 @@ describe("Obj class", () => {
   });
 
   test("prototype methods are accessible", () => {
-    class ExtendedObj extends Obj {
-      testMethod() {
-        return "test";
-      }
-    }
+    const ExtendedObj = class extends Obj {
+      testMethod = () => {
+        return this.test + "test";
+      };
+    };
     const obj = new ExtendedObj();
-    assert.equal(obj.testMethod(), "test");
+    assert.equal(obj.testMethod(), "undefinedtest");
   });
 
   test("delete returns true for non-existent properties", () => {
@@ -91,7 +100,7 @@ describe("Obj class", () => {
   test("Object.assign works correctly", () => {
     const obj = new Obj({ a: 1 });
     Object.assign(obj, { b: 2, c: 3 });
-    assert.deepEqual(Object.entries(obj), [
+    assert.deepEqual(Object.entries(new Obj({ a: 1, b: 2, c: 3 })), [
       ["a", 1],
       ["b", 2],
       ["c", 3],

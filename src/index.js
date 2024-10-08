@@ -1,42 +1,55 @@
 "use strict";
 
-module.exports.Obj = class Obj {
+module.exports.Obj = class {
   #map = new Map();
 
+  /**
+   * @param {object} initialData initialData
+   * @returns {object} object
+   */
   constructor(initialData = {}) {
-    for (const [key, value] of Object.entries(initialData)) {
-      this.#map.set(key, value);
+    for (const key of Object.keys(initialData)) {
+      this.#map.set(key, initialData[key]);
     }
 
-    this.toString = this.toString.bind(this);
-
     return new Proxy(this, {
-      has(target, prop) {
+      ownKeys: (target) => {
+        return Array.from(target.#map.keys());
+      },
+      has: (target, prop) => {
         return target.#map.has(prop) || prop in Object.getPrototypeOf(target);
       },
-      get(target, prop, receiver) {
+      get: (target, prop, receiver) => {
         if (target.#map.has(prop)) {
           return target.#map.get(prop);
         }
 
-        return Reflect.get(target, prop, receiver);
+        const value = Reflect.get(target, prop, receiver);
+
+        return typeof value === "function" ? value.bind(target) : value;
       },
-      set(target, prop, value) {
+      set: (target, prop, value) => {
         target.#map.set(prop, value);
 
         return true;
       },
-      deleteProperty(target, prop) {
+      defineProperty: (target, prop, descriptor) => {
+        if (descriptor.get || descriptor.set) {
+          throw new TypeError("Getter/Setter properties are not supported");
+        }
+
+        target.#map.set(prop, descriptor.value);
+
+        return true;
+      },
+      deleteProperty: (target, prop) => {
         if (target.#map.has(prop)) {
           return target.#map.delete(prop);
         }
 
         return true;
       },
-      ownKeys(target) {
-        return Array.from(target.#map.keys());
-      },
-      getOwnPropertyDescriptor(target, prop) {
+      getOwnPropertyDescriptor: (target, prop) => {
         if (target.#map.has(prop)) {
           return {
             configurable: true,
@@ -45,17 +58,6 @@ module.exports.Obj = class Obj {
             writable: true,
           };
         }
-
-        return undefined;
-      },
-      defineProperty(target, prop, descriptor) {
-        if (descriptor.get || descriptor.set) {
-          throw new TypeError("Getter/Setter properties are not supported");
-        }
-
-        target.#map.set(prop, descriptor.value);
-
-        return true;
       },
     });
   }
