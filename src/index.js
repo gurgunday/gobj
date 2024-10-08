@@ -1,13 +1,19 @@
 "use strict";
 
 module.exports.Obj = class {
-  #map = new Map();
+  #map;
 
   /**
    * @param {object} initialData initialData
-   * @returns {object} object
+   * @throws {TypeError} If initialData is not an object
    */
   constructor(initialData = {}) {
+    if (typeof initialData !== "object") {
+      throw new TypeError("Expected an object");
+    }
+
+    this.#map = new Map();
+
     for (const key of Object.keys(initialData)) {
       this.#map.set(key, initialData[key]);
     }
@@ -46,10 +52,10 @@ module.exports.Obj = class {
       getOwnPropertyDescriptor: (target, prop) => {
         if (target.#map.has(prop)) {
           return {
-            configurable: true,
-            enumerable: true,
             value: target.#map.get(prop),
             writable: true,
+            enumerable: true,
+            configurable: true,
           };
         }
       },

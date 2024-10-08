@@ -5,6 +5,12 @@ const { test, describe } = require("node:test");
 const { Obj } = require("../src");
 
 describe("Obj class", () => {
+  test("constructor throws if given data is not object", () => {
+    assert.throws(() => {
+      new Obj(1);
+    }, TypeError);
+  });
+
   test("constructor initializes with given data", () => {
     const obj = new Obj({ a: 1, b: 2 });
 
