@@ -1,5 +1,9 @@
 "use strict";
 
+// TODO: fix console.log(obj)
+
+// TODO: add support for preventExtensions, seal, freeze
+
 module.exports.Obj = class {
   #map;
 
