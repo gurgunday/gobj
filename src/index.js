@@ -4,7 +4,7 @@
 
 // TODO: add support for preventExtensions, seal, freeze
 
-module.exports.Obj = class {
+const Obj = class {
   #map;
 
   /**
@@ -62,3 +62,5 @@ module.exports.Obj = class {
     });
   }
 };
+
+module.exports.Obj = Obj;
