@@ -2,7 +2,7 @@
 
 snu**gobj**ect is a mutable JavaScript Object with an immutable hidden class.
 
-Works in the browser. No runtime dependencies. Drop-in\* replacement to Object. [Comparable performance.](#benchmarks)
+Works in the browser. No runtime dependencies. Drop-in\* replacement to Object. [Get more out of your JS engine.](https://stackoverflow.com/questions/62350146/why-map-manipulation-is-much-slower-than-object-in-javascript-v8-for-integ/62351925#62351925)
 
 ![gobj.gif](./gobj.gif)
 
@@ -63,8 +63,4 @@ console.log(JSON.stringify(obj)); // Output: '{"name":"John Doe","email":"john@e
 
 ## How It Works
 
-Under the hood, `gobj` uses a `Map` to store the object's properties and a `Proxy` to intercept and handle all standard object operations. This allows for efficient property access and modification while maintaining an immutable hidden class.
-
-## Benchmarks
-
-TODO: Add benchmarks comparing `gobj` to regular JavaScript objects and other similar libraries.
+Under the hood, `gobj` uses a `Map` to store the object's properties and a `Proxy` to intercept and handle all standard object operations.
