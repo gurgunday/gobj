@@ -13,7 +13,7 @@ const Obj = class {
    */
   constructor(initialData = {}) {
     if (typeof initialData !== "object") {
-      throw new TypeError("Expected an object");
+      throw new TypeError("initialData must be an Object");
     }
 
     this.#map = new Map();
