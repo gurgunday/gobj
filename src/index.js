@@ -1,9 +1,5 @@
 "use strict";
 
-// TODO: fix console.log(obj)
-
-// TODO: add support for preventExtensions, seal, freeze
-
 const Obj = class {
   #map;
 
