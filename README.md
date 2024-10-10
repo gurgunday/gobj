@@ -1,6 +1,6 @@
 # gobj ![img.shields.io/bundlephobia/minzip/gobj](https://img.shields.io/bundlephobia/minzip/gobj)
 
-mappin**gobj**ect is a mutable JavaScript Object with an immutable hidden class.
+snu**gobj**ect is a mutable JavaScript Object with an immutable hidden class.
 
 Works in the browser. No runtime dependencies. Drop-in\* replacement to Object. [Comparable performance.](#benchmarks)
 
