@@ -1,6 +1,6 @@
 {
   "name": "gobj",
-  "description": "Mutable JavaScript Object with an immutable hidden class.",
+  "description": "Mutable JavaScript object with an immutable hidden class.",
   "author": "Gürgün Dayıoğlu",
   "license": "MIT",
   "version": "0.1.1",

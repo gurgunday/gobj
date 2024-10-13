@@ -7,7 +7,7 @@ const { Obj } = require("../src");
 describe("Obj class", () => {
   test("constructor throws if given data is not object", () => {
     assert.throws(() => {
-      new Obj(1);
+      new Obj(null);
     }, TypeError);
   });
 

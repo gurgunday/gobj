@@ -4,18 +4,16 @@ const Obj = class {
   #map;
 
   /**
-   * @param {object} initialData initialData
-   * @throws {TypeError} If initialData is not an object
+   * @param {object} data data
+   * @throws {TypeError}
    */
-  constructor(initialData = {}) {
-    if (typeof initialData !== "object") {
-      throw new TypeError("initialData must be an Object");
-    }
-
+  constructor(data) {
     this.#map = new Map();
 
-    for (const key of Object.keys(initialData)) {
-      this.#map.set(key, initialData[key]);
+    if (typeof data === "object") {
+      for (const key of Object.keys(data)) {
+        this.#map.set(key, data[key]);
+      }
     }
 
     return new Proxy(this, {
