@@ -1,5 +1,11 @@
 "use strict";
 
+const _get = Reflect.get;
+const _keys = Object.keys;
+const _getPrototypeOf = Object.getPrototypeOf;
+
+const _from = Array.from;
+
 const Obj = class {
   #map;
 
@@ -11,22 +17,22 @@ const Obj = class {
     this.#map = new Map();
 
     if (typeof data === "object") {
-      for (const key of Object.keys(data)) {
+      for (const key of _keys(data)) {
         this.#map.set(key, data[key]);
       }
     }
 
     return new Proxy(this, {
       ownKeys: (target) => {
-        return Array.from(target.#map.keys());
+        return _from(target.#map.keys());
       },
       has: (target, prop) => {
-        return target.#map.has(prop) || prop in Object.getPrototypeOf(target);
+        return target.#map.has(prop) || prop in _getPrototypeOf(target);
       },
       get: (target, prop, receiver) => {
         return target.#map.has(prop)
           ? target.#map.get(prop)
-          : Reflect.get(target, prop, receiver);
+          : _get(target, prop, receiver);
       },
       set: (target, prop, value) => {
         target.#map.set(prop, value);
