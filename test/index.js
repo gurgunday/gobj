@@ -1,8 +1,8 @@
 "use strict";
 
-const { strict: assert } = require("node:assert");
+const { Obj } = require("..");
 const { test, describe } = require("node:test");
-const { Obj } = require("../src");
+const assert = require("node:assert/strict");
 
 describe("Obj class", () => {
   test("constructor throws if given data is not object", () => {
