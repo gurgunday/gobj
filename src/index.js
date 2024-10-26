@@ -1,8 +1,8 @@
 "use strict";
 
-const _getPrototypeOf = Object.getPrototypeOf;
 const _keys = Object.keys;
 const _get = Reflect.get;
+const _getPrototypeOf = Reflect.getPrototypeOf;
 
 const _from = Array.from;
 
